@@ -10,9 +10,8 @@ import { RolesGuard } from 'src/auth/guards/roles.guard';
 import { Usuario } from './usuarios.schema';
 
 @ApiTags('Usuarios')
-@ApiBearerAuth('access-token')
 @Controller('usuario')
-@UseGuards(JwtAuthGuard, RolesGuard)
+
 export class UsuariosController {
 
     constructor(
@@ -29,6 +28,8 @@ export class UsuariosController {
     }
 
     @Get()
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @HasRoles(ROLES.SUPER_ADMIN)
     @ApiOperation({ summary: 'Obtener todos los usuarios' })
     @ApiResponse({ status: 200, description: 'Lista de usuarios', type: [Usuario] })
@@ -40,6 +41,8 @@ export class UsuariosController {
     }
 
     @Get(':id')
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @HasRoles(ROLES.SUPER_ADMIN)
     @ApiOperation({ summary: 'Obtener un usuario por ID' })
     @ApiParam({ name: 'id', description: 'ID del usuario a obtener' })
@@ -52,6 +55,8 @@ export class UsuariosController {
     }
 
     @Delete(':email')
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @HasRoles(ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.INVESTIGADOR)
     @ApiOperation({ summary: 'Da de baja un usuario por email' })
     @ApiParam({ name: 'email', description: 'Email del usuario a dar de baja' })
@@ -63,6 +68,8 @@ export class UsuariosController {
     }
 
     @Patch(':email')
+    @ApiBearerAuth('access-token')
+    @UseGuards(JwtAuthGuard, RolesGuard)
     @HasRoles(ROLES.SUPER_ADMIN, ROLES.ADMIN, ROLES.INVESTIGADOR)
     @ApiOperation({ summary: 'Actualizar contrasenia de un usuario por email' })
     @ApiParam({ name: 'email', description: 'Email del usuario a actualizar' })
